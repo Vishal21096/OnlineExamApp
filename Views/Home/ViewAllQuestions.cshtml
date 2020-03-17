@@ -1,0 +1,72 @@
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<OnlineQuizApp.Models.TBL_QUESTIONS>
+@{
+    ViewBag.Title = "ViewAllQuestions";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>ViewAllQuestions</h2>
+<table class="table">
+    <tr>
+        <th>
+         
+            Question
+        </th>
+        <th>
+           Option A
+        </th>
+        <th>
+           Option B
+        </th>
+        <th>
+          Option C
+        </th>
+        <th>
+          Option D
+        </th>
+        <th>
+           Correc Option
+        </th>
+        <th>
+           Category Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Q_TEXT)
+        </td>
+        <td >
+            @Html.DisplayFor(modelItem => item.OPA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OPB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OPC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OPD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.COP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TBL_CATEGORY.CAT_NAME)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.QUESTION_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.QUESTION_ID })
+        </td>
+    </tr>
+}
+
+</table>
+<div id="container" style="margin-left:400px">
+    Page @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount @Html.PagedListPager(Model,Page => Url.Action("ViewAllQuestions", new { Page}))
+
+</div>
